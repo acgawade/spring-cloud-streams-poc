@@ -1,0 +1,28 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    function:
+      definition: "demoEventInput;demoEventOutput;demoEventEmitter"
+    stream:
+      kafka:
+        binder:
+          autoCreateTopics: true
+          autoAddPartitions: true
+        default:
+          consumer:
+            autoCommitOnError: true
+      bindings:
+        demoEventOutput-out-0:
+          destination: shopify
+        demoEventInput-in-0:
+          destination: shopify
+        demoEventEmitter-out-0:
+          destination: shopify
+          
+server:  port: 9090
